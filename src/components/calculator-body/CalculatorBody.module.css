@@ -1,0 +1,30 @@
+.calculator-body{
+  width: 85%;
+  height: 350px;
+  display: flex;
+}
+
+.number-pad{
+  width: 57.5%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.operator-pad{
+  width: 37.5%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.calculator-body button{
+  margin: 1px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.calculator-body button:hover{
+  filter: brightness(85%);
+}
