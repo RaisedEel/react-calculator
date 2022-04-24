@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import ScreenContext from '../../context/screen-context';
 import classes from './Screen.module.css';
 
-function Screen(props) {
+function Screen() {
   const screenCtx = useContext(ScreenContext);
 
   return (

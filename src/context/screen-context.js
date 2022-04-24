@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 
 const ScreenContext = React.createContext({
   upperScreen: '',
-  lowerScreen: '',
+  lowerScreen: '0',
   isLowerCero: true,
   addToLowerScreen: (value) => {},
   removeFromLowerScreen: () => {},
@@ -11,9 +11,9 @@ const ScreenContext = React.createContext({
   clear: () => {},
 });
 
-initContent = {
+const initContent = {
   upperScreen: '',
-  lowerScreen: '',
+  lowerScreen: '0',
   isLowerCero: true,
 };
 
@@ -28,19 +28,19 @@ function screenContextReducer(state, action) {
       if (state.lowerScreen.length === 1) {
         lowerValue = '0';
       } else {
-        lowerValue = state.lowerScreen.slice(-1);
+        lowerValue = state.lowerScreen.slice(0,-1);
       }
 
       return { ...state, lowerScreen: lowerValue };
     case 'MOVE_TO_UPPER':
-      upperValue = state.lowerScreen.concat(operator);
+      upperValue = state.lowerScreen.concat(action.operator);
       return { lowerScreen: '0', upperScreen: upperValue, isLowerCero: true };
     case 'OPERATE':
       upperValue = state.upperScreen.split(' ');
       lowerValue = state.lowerScreen;
 
       const firstNumber = Number(upperValue[0]);
-      const secondNumber = Number(lowerScreen);
+      const secondNumber = Number(lowerValue);
       const operator = upperValue[1];
 
       switch (operator) {

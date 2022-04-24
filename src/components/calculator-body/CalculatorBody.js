@@ -8,10 +8,10 @@ function CalculatorBody() {
   return (
     <div className={classes['calculator-body']}>
       <div className={classes['number-pad']}>
-        <ButtonPad buttons = {NUMBER_PAD} width = '31%'/>
+        <ButtonPad key='numbers' buttons = {NUMBER_PAD} width = '31%'/>
       </div>
       <div className={classes['operator-pad']}>
-        <ButtonPad buttons = {OPERATOR_PAD} width = '48%'/>
+        <ButtonPad key='operators' buttons = {OPERATOR_PAD} width = '48%'/>
       </div>
     </div>
   );
