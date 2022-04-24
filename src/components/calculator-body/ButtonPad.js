@@ -10,7 +10,7 @@ function ButtonPad(props) {
       return (
         <button
           key={button}
-          onClick={screenCtx.addToLowerScreen.bind(null, button)}
+          onClick={() => screenCtx.dispatchAction({type: 'ADD_DIGIT', value: button})}
           style={{ width: props.width }}
         >
           {button}
@@ -20,7 +20,7 @@ function ButtonPad(props) {
       return (
         <button
           key={button}
-          onClick={screenCtx.operateLowerWithUpper}
+          onClick={() => screenCtx.dispatchAction({type: 'USE_EQUALS'})}
           style={{ width: props.width }}
         >
           {button}
@@ -30,7 +30,7 @@ function ButtonPad(props) {
       return (
         <button
           key={button}
-          onClick={screenCtx.removeFromLowerScreen}
+          onClick={() => screenCtx.dispatchAction({type: 'REMOVE_DIGIT'})}
           style={{ width: props.width }}
         >
           {button}
@@ -46,12 +46,22 @@ function ButtonPad(props) {
           {button}
         </button>
       );
+    } else if (button === '+/-'){
+      return (
+        <button
+          key={button}
+          onClick={() => screenCtx.dispatchAction({type: 'USE_NEGATION'})}
+          style={{ width: props.width }}
+        >
+          {button}
+        </button>
+      );
     }
 
     return (
       <button
         key={button}
-        onClick={screenCtx.moveFromLowerToUpper.bind(null, ` ${button} `)}
+        onClick={() => screenCtx.dispatchAction({type: 'USE_OPERATOR', operator: ` ${button} `})}
         style={{ width: props.width }}
       >
         {button}

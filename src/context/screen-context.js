@@ -3,18 +3,15 @@ import React, { useReducer } from 'react';
 const ScreenContext = React.createContext({
   upperScreen: '',
   lowerScreen: '0',
-  isLowerCero: true,
-  addToLowerScreen: (value) => {},
-  removeFromLowerScreen: () => {},
-  moveFromLowerToUpper: (operator) => {},
-  operateLowerWithUpper: () => {},
+  shouldClearScreen: true,
+  dispatchAction: (action) => {},
   clear: () => {},
 });
 
 const initContent = {
   upperScreen: '',
   lowerScreen: '0',
-  isLowerCero: true,
+  shouldClearScreen: true,
 };
 
 function operate(numero1, numero2, operator) {
@@ -43,6 +40,8 @@ function operate(numero1, numero2, operator) {
       result = 'ERROR: Operation Invalid';
   }
 
+  if (Number.isNaN(result) || !Number.isFinite(result))
+    result = 'ERROR: Operation Invalid';
   return result;
 }
 
@@ -50,42 +49,59 @@ function screenContextReducer(state, action) {
   let lowerValue;
   let upperValue;
   switch (action.type) {
-    case 'ADD_LOWER':
-      if (state.isLowerCero || state.lowerScreen === '0') {
+    case 'ADD_DIGIT':
+      if (
+        state.shouldClearScreen ||
+        state.lowerScreen === '0' ||
+        state.lowerScreen.includes('E')
+      ) {
         return {
           ...state,
           lowerScreen: action.value.toString(),
-          isLowerCero: false,
+          shouldClearScreen: false,
         };
+      } else if (state.lowerScreen.length >= 12) {
+        return { ...state };
       } else {
         lowerValue = state.lowerScreen.concat(action.value);
         return { ...state, lowerScreen: lowerValue };
       }
-    case 'REMOVE_LOWER':
+    case 'REMOVE_DIGIT':
       if (state.lowerScreen.length === 1) {
         lowerValue = '0';
-        return { ...state, lowerScreen: lowerValue, isLowerCero: true };
+        return { ...state, lowerScreen: lowerValue, shouldClearScreen: true };
       } else {
         lowerValue = state.lowerScreen.slice(0, -1);
         return { ...state, lowerScreen: lowerValue };
       }
-    case 'MOVE_TO_UPPER':
-      if (state.upperScreen === '') {
-        upperValue = state.lowerScreen.concat(action.operator);
-        return { lowerScreen: '0', upperScreen: upperValue, isLowerCero: true };
+    case 'USE_OPERATOR':
+      if (!state.lowerScreen.includes('E')) {
+        if (state.upperScreen === '' || state.upperScreen.includes('=')) {
+          upperValue = state.lowerScreen.concat(action.operator);
+          return {
+            lowerScreen: '0',
+            upperScreen: upperValue,
+            shouldClearScreen: true,
+          };
+        } else {
+          upperValue = state.upperScreen.split(' ');
+          lowerValue = state.lowerScreen;
+
+          const result = operate(upperValue[0], lowerValue, upperValue[1]);
+          if (typeof result === 'string')
+            return { ...state, lowerScreen: result, shouldClearScreen: true };
+
+          return {
+            lowerScreen: result.toString(),
+            upperScreen: `${result}${action.operator}`,
+            shouldClearScreen: true,
+          };
+        }
       } else {
-        upperValue = state.upperScreen.split(' ');
-        lowerValue = state.lowerScreen;
-
-        const result = operate(upperValue[0], lowerValue, upperValue[1]);
-
-        return {
-          lowerScreen: result.toString(),
-          upperScreen: `${result}${action.operator}`,
-          isLowerCero: true,
-        };
+        return { ...state };
       }
-    case 'OPERATE':
+
+    case 'USE_EQUALS':
       if (state.upperScreen.includes('=')) {
         return { ...state };
       }
@@ -99,7 +115,13 @@ function screenContextReducer(state, action) {
         lowerScreen: result.toString(),
         upperScreen: `${state.upperScreen}${lowerValue} = `,
       };
-
+    case 'USE_NEGATION':
+      if(state.lowerScreen.includes('-')){
+        lowerValue = state.lowerScreen.slice(1);
+      }else{
+        lowerValue = `-${state.lowerScreen}`;
+      }
+      return {...state, lowerScreen: lowerValue};
     default:
       return initContent;
   }
@@ -114,11 +136,7 @@ export function ScreenContextProvider(props) {
   const contextValue = {
     upperScreen: screensContent.upperScreen,
     lowerScreen: screensContent.lowerScreen,
-    addToLowerScreen: (value) => dispatch({ type: 'ADD_LOWER', value }),
-    removeFromLowerScreen: () => dispatch({ type: 'REMOVE_LOWER' }),
-    moveFromLowerToUpper: (operator) =>
-      dispatch({ type: 'MOVE_TO_UPPER', operator }),
-    operateLowerWithUpper: () => dispatch({ type: 'OPERATE' }),
+    dispatchAction: dispatch,
     clear: () => dispatch({ type: 'CLEAR' }),
   };
 
