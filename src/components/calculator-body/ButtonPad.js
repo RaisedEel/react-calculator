@@ -10,7 +10,9 @@ function ButtonPad(props) {
       return (
         <button
           key={button}
-          onClick={() => screenCtx.dispatchAction({type: 'ADD_DIGIT', value: button})}
+          onClick={() =>
+            screenCtx.dispatchAction({ type: 'ADD_DIGIT', value: button })
+          }
           style={{ width: props.width }}
         >
           {button}
@@ -20,7 +22,7 @@ function ButtonPad(props) {
       return (
         <button
           key={button}
-          onClick={() => screenCtx.dispatchAction({type: 'USE_EQUALS'})}
+          onClick={() => screenCtx.dispatchAction({ type: 'USE_EQUALS' })}
           style={{ width: props.width }}
         >
           {button}
@@ -30,7 +32,7 @@ function ButtonPad(props) {
       return (
         <button
           key={button}
-          onClick={() => screenCtx.dispatchAction({type: 'REMOVE_DIGIT'})}
+          onClick={() => screenCtx.dispatchAction({ type: 'REMOVE_DIGIT' })}
           style={{ width: props.width }}
         >
           {button}
@@ -46,11 +48,21 @@ function ButtonPad(props) {
           {button}
         </button>
       );
-    } else if (button === '+/-'){
+    } else if (button === '+/-') {
       return (
         <button
           key={button}
-          onClick={() => screenCtx.dispatchAction({type: 'USE_NEGATION'})}
+          onClick={() => screenCtx.dispatchAction({ type: 'USE_NEGATION' })}
+          style={{ width: props.width }}
+        >
+          {button}
+        </button>
+      );
+    } else if (button === '.') {
+      return (
+        <button
+          key={button}
+          onClick={() => screenCtx.dispatchAction({ type: 'USE_DECIMALS' })}
           style={{ width: props.width }}
         >
           {button}
@@ -61,7 +73,12 @@ function ButtonPad(props) {
     return (
       <button
         key={button}
-        onClick={() => screenCtx.dispatchAction({type: 'USE_OPERATOR', operator: ` ${button} `})}
+        onClick={() =>
+          screenCtx.dispatchAction({
+            type: 'USE_OPERATOR',
+            operator: ` ${button} `,
+          })
+        }
         style={{ width: props.width }}
       >
         {button}

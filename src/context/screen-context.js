@@ -122,6 +122,12 @@ function screenContextReducer(state, action) {
         lowerValue = `-${state.lowerScreen}`;
       }
       return {...state, lowerScreen: lowerValue};
+    case 'USE_DECIMALS':
+      if(!state.lowerScreen.includes('.')){
+        return {...state, lowerScreen: state.lowerScreen.concat('.')};
+      }else{
+        return {...state};
+      }
     default:
       return initContent;
   }
