@@ -1,4 +1,8 @@
 # react-calculator project
+
+Check the functional page here:
+https://raisedeel.github.io/react-calculator/
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
