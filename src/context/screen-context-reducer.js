@@ -2,7 +2,7 @@
 import operate from './operations';
 
 // Context for all posible types of actions for the buttons
-// If some new type of button is added a new actions will have
+// If some new type of button is added a new action will have
 // to be created here
 function screenContextReducer(state, action) {
   let lowerValue;

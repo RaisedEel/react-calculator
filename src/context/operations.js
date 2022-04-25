@@ -1,5 +1,6 @@
 
-// In case of more complex operations they can be added here...
+// In case of wanting to add more complex operations, they can be added
+// here but an action will have to be created in the context
 
 function operate(numero1, numero2, operator) {
   const firstNumber = Number(numero1);
