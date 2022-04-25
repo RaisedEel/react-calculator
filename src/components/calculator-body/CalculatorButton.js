@@ -7,6 +7,7 @@ function CalculatorButton(props) {
   const screenCtx = useContext(ScreenContext);
 
   let buttonAction;
+  // Assigning different actions depending of the type of button
   switch (props.type) {
     case 'operator':
       buttonAction = () =>

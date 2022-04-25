@@ -1,6 +1,8 @@
 import classes from './CalculatorBody.module.css';
 import CalculatorButton from './CalculatorButton';
 
+// Declaring the type of button so a class can
+// be easily assigned
 //[7, 8, 9, 4, 5, 6, 1, 2, 3, 0, '.', '+/-'];
 const NUMBER_PAD = [
   { content: '7', type: 'number' },
