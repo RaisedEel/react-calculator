@@ -53,10 +53,7 @@ function CalculatorButton(props) {
   }
 
   return (
-    <button
-      className={classes[props.type]}
-      onClick={buttonAction}
-    >
+    <button className={classes[props.type]} onClick={buttonAction}>
       {props.content}
     </button>
   );

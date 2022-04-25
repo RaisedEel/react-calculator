@@ -116,17 +116,17 @@ function screenContextReducer(state, action) {
         upperScreen: `${state.upperScreen}${lowerValue} = `,
       };
     case 'USE_NEGATION':
-      if(state.lowerScreen.includes('-')){
+      if (state.lowerScreen.includes('-')) {
         lowerValue = state.lowerScreen.slice(1);
-      }else{
+      } else {
         lowerValue = `-${state.lowerScreen}`;
       }
-      return {...state, lowerScreen: lowerValue};
+      return { ...state, lowerScreen: lowerValue };
     case 'USE_DECIMALS':
-      if(!state.lowerScreen.includes('.')){
-        return {...state, lowerScreen: state.lowerScreen.concat('.')};
-      }else{
-        return {...state};
+      if (!state.lowerScreen.includes('.')) {
+        return { ...state, lowerScreen: state.lowerScreen.concat('.') };
+      } else {
+        return { ...state };
       }
     default:
       return initContent;

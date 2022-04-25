@@ -6,8 +6,8 @@ function App() {
   return (
     <div className='main'>
       <Calculator>
-        <Screen/>
-        <CalculatorBody/>
+        <Screen />
+        <CalculatorBody />
       </Calculator>
     </div>
   );
