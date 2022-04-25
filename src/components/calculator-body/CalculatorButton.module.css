@@ -1,0 +1,27 @@
+.operator{
+  background-color: royalblue;
+  color: white;
+  width: 48%;
+}
+
+.equals{
+  background-color: royalblue;
+  color: white;
+  width: 96%;
+}
+
+.negator, .dot{
+  background-color: lightgray;
+  width: 31%;
+}
+
+.clear, .delete{
+  background-color: crimson;
+  color: white;
+  width: 48%;
+}
+
+.number{
+  background-color: ivory;
+  width: 31%;
+}
