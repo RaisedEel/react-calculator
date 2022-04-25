@@ -1,12 +1,13 @@
-# Getting Started with Create React App
+# react-calculator project
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Description
+## Description
 
 Simple calculator built with React and some hooks with basic functions, operations and an intuitive design.
 
-# Features
+## Features
 
 * Looks like a real world calculator.
 * Uses the UseContext hook so the screen and buttons components are connected.
